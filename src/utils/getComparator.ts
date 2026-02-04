@@ -1,4 +1,4 @@
-import { CardStatus, Flashcard, Order } from '@type-schema/common';
+import { Flashcard, Order } from '@type-schema/flashcard';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T | undefined) {
   if (orderBy === undefined) {

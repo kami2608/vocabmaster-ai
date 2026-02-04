@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, Library, BrainCircuit, Plus, Gamepad2, BookA } from 'lucide-react';
+import { LayoutDashboard, Library, BrainCircuit, Plus, Gamepad2, BookA, Upload } from 'lucide-react';
 import { Link, useRouterState } from '@tanstack/react-router';
 import { useAppContext } from '@context/AppContext';
 import AddCardModal from './AddCardModal';
@@ -61,6 +61,13 @@ const Sidebar: React.FC = () => {
           >
             <Library size={20} />
             Word List
+          </Link>
+          <Link
+            to="/import"
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${isActive('/import') ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-slate-600 hover:bg-slate-100'}`}
+          >
+            <Upload size={20} />
+            Import CSV
           </Link>
         </nav>
 

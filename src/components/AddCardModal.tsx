@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { X, Sparkles, Loader2, Save } from 'lucide-react';
+import { X, Sparkles, Loader2, Save, Asterisk } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
-import { CardStatus, Flashcard } from '@type-schema/common';
+import { CardStatus, Flashcard } from '@type-schema/flashcard';
 import { generateWordDetails } from '@services/geminiService';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
@@ -84,12 +84,15 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ isOpen, onClose, onAdd }) =
 
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Word</label>
+            <label className="flex gap-0.5 text-sm font-medium text-slate-700 mb-1">
+              <p>Word</p>
+              <Asterisk size={10} color="#fb2c36" />
+            </label>
             <div className="flex gap-2">
               <div className="flex-1">
                 <input
                   type="text"
-                  className="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"
+                  className="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none"
                   placeholder="e.g., Ephemeral"
                   autoFocus
                   {...register('word', { required: 'Word is required!' })}
@@ -124,20 +127,27 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ isOpen, onClose, onAdd }) =
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">
-                Vietnamese Meaning
+              <label className="flex gap-0.5 text-sm font-medium text-slate-700 mb-1">
+                <p>Vietnamese Meaning</p>
+                <Asterisk size={10} color="#fb2c36" />
               </label>
               <input
                 type="text"
                 className="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none"
                 placeholder="Phù du, sớm nở tối tàn"
-                {...register('translation')}
+                {...register('translation', { required: 'Translation is required!' })}
               />
+              {errors.translation && (
+                <p className="text-red-500 text-sm mt-1">{errors.translation.message}</p>
+              )}
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-700 mb-1">Definition</label>
+            <label className="flex gap-0.5 text-sm font-medium text-slate-700 mb-1">
+              <p>Definition</p>
+              <Asterisk size={10} color="#fb2c36" />
+            </label>
             <textarea
               className="w-full p-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none h-20 resize-none"
               placeholder="The meaning of the word..."

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flashcard } from '@type-schema/common';
+import { Flashcard } from '@type-schema/flashcard';
 import FlashcardView from '@components/FlashcardView';
 
 interface StudyPageProps {

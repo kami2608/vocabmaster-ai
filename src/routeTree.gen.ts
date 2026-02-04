@@ -18,6 +18,7 @@ import { Route as AuthLoginRouteImport } from './routes/_auth/login'
 import { Route as AppStudyRouteImport } from './routes/_app/study'
 import { Route as AppPracticeRouteImport } from './routes/_app/practice'
 import { Route as AppManageRouteImport } from './routes/_app/manage'
+import { Route as AppImportRouteImport } from './routes/_app/import'
 import { Route as AppDashboardRouteImport } from './routes/_app/dashboard'
 
 const SplatRoute = SplatRouteImport.update({
@@ -63,6 +64,11 @@ const AppManageRoute = AppManageRouteImport.update({
   path: '/manage',
   getParentRoute: () => AppRouteRoute,
 } as any)
+const AppImportRoute = AppImportRouteImport.update({
+  id: '/import',
+  path: '/import',
+  getParentRoute: () => AppRouteRoute,
+} as any)
 const AppDashboardRoute = AppDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -73,6 +79,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/dashboard': typeof AppDashboardRoute
+  '/import': typeof AppImportRoute
   '/manage': typeof AppManageRoute
   '/practice': typeof AppPracticeRoute
   '/study': typeof AppStudyRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/dashboard': typeof AppDashboardRoute
+  '/import': typeof AppImportRoute
   '/manage': typeof AppManageRoute
   '/practice': typeof AppPracticeRoute
   '/study': typeof AppStudyRoute
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteRouteWithChildren
   '/$': typeof SplatRoute
   '/_app/dashboard': typeof AppDashboardRoute
+  '/_app/import': typeof AppImportRoute
   '/_app/manage': typeof AppManageRoute
   '/_app/practice': typeof AppPracticeRoute
   '/_app/study': typeof AppStudyRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/dashboard'
+    | '/import'
     | '/manage'
     | '/practice'
     | '/study'
@@ -118,6 +128,7 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/dashboard'
+    | '/import'
     | '/manage'
     | '/practice'
     | '/study'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/$'
     | '/_app/dashboard'
+    | '/_app/import'
     | '/_app/manage'
     | '/_app/practice'
     | '/_app/study'
@@ -209,6 +221,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppManageRouteImport
       parentRoute: typeof AppRouteRoute
     }
+    '/_app/import': {
+      id: '/_app/import'
+      path: '/import'
+      fullPath: '/import'
+      preLoaderRoute: typeof AppImportRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
     '/_app/dashboard': {
       id: '/_app/dashboard'
       path: '/dashboard'
@@ -221,6 +240,7 @@ declare module '@tanstack/react-router' {
 
 interface AppRouteRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
+  AppImportRoute: typeof AppImportRoute
   AppManageRoute: typeof AppManageRoute
   AppPracticeRoute: typeof AppPracticeRoute
   AppStudyRoute: typeof AppStudyRoute
@@ -228,6 +248,7 @@ interface AppRouteRouteChildren {
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
+  AppImportRoute: AppImportRoute,
   AppManageRoute: AppManageRoute,
   AppPracticeRoute: AppPracticeRoute,
   AppStudyRoute: AppStudyRoute,

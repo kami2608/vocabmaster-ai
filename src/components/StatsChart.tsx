@@ -1,4 +1,4 @@
-import { CardStatus, Flashcard } from '@type-schema/common';
+import { CardStatus, Flashcard } from '@type-schema/flashcard';
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 

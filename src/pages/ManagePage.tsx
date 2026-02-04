@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
-import { CardStatus, cardStatusOptions } from '@type-schema/common';
+import { CardStatus, cardStatusOptions } from '@type-schema/flashcard';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import VocabTable from '@components/VocabTable';
 import { useGetFlashcards } from '@apis/queries/flashcards';
 import { useDeleteFlashcard } from '@apis/mutations/flashcards';
+import Input from '@components/Input';
 
 const ManagePage: React.FC = () => {
   const { data: cards, isLoading } = useGetFlashcards();
@@ -28,14 +29,13 @@ const ManagePage: React.FC = () => {
   return (
     <div className="space-y-6 animate-in slide-in-from-right-4 duration-300">
       <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
-        <div className="relative w-full lg:w-96">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-          <input
+        <div className="w-full lg:w-96">
+          <Input
             type="text"
             placeholder="Search words, words's translation..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none"
+            startIcon={<Search className="text-slate-400" size={18} />}
           />
         </div>
         <div>

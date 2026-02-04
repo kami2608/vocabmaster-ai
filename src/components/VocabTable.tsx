@@ -9,10 +9,11 @@ import {
   TableRow,
   TableSortLabel,
 } from '@mui/material';
-import { CardStatus, Flashcard, Order } from '@type-schema/common';
+import { CardStatus, Flashcard, Order } from '@type-schema/flashcard';
 import { getComparator } from '@utils/getComparator';
 import { Trash2 } from 'lucide-react';
 import { FC, useMemo, useState } from 'react';
+import CardDetailModal from './CardDetailModal';
 
 interface VocabTableProps {
   data: Flashcard[];
@@ -25,7 +26,7 @@ const VocabTable: FC<VocabTableProps> = ({ data, onDeleteCard, isLoading }) => {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState<Order>();
   const [orderBy, setOrderBy] = useState<keyof Flashcard>();
-  console.log('render');
+  const [selectedWord, setSelectedWord] = useState<Flashcard | null>(null);
 
   const visibleRows = useMemo(
     () =>
@@ -125,7 +126,7 @@ const VocabTable: FC<VocabTableProps> = ({ data, onDeleteCard, isLoading }) => {
             ) : (
               visibleRows.map((card) => (
                 <TableRow>
-                  <TableCell>
+                  <TableCell onClick={() => setSelectedWord(card)} className="cursor-pointer">
                     <div className="font-bold text-slate-800 text-[16px]">{card.word}</div>
                     {card.phonetic && (
                       <div className="text-xs text-slate-500 font-mono">{card.phonetic}</div>
@@ -164,6 +165,13 @@ const VocabTable: FC<VocabTableProps> = ({ data, onDeleteCard, isLoading }) => {
           </TableBody>
         </Table>
       </TableContainer>
+      {selectedWord && (
+        <CardDetailModal
+          onClose={() => setSelectedWord(null)}
+          word={selectedWord}
+          isOpen={!!selectedWord}
+        />
+      )}
     </>
   );
 };

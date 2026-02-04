@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Flashcard } from '@type-schema/common';
+import React, { useEffect, useState } from 'react';
+import { Flashcard } from '@type-schema/flashcard';
 import { RotateCw, CheckCircle, XCircle, Volume2 } from 'lucide-react';
+import { handleSpeech } from '@utils/hanleSpeech';
 
 interface FlashcardViewProps {
   card: Flashcard;
@@ -10,17 +11,9 @@ interface FlashcardViewProps {
 const FlashcardView: React.FC<FlashcardViewProps> = ({ card, onResult }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
-  // Reset flip state when card changes
-  React.useEffect(() => {
+  useEffect(() => {
     setIsFlipped(false);
   }, [card.id]);
-
-  const handleSpeech = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const utterance = new SpeechSynthesisUtterance(card.word);
-    utterance.lang = 'en-US';
-    window.speechSynthesis.speak(utterance);
-  };
 
   return (
     <div
@@ -45,7 +38,10 @@ const FlashcardView: React.FC<FlashcardViewProps> = ({ card, onResult }) => {
             <RotateCw size={14} /> Tap to flip
           </div>
           <button
-            onClick={handleSpeech}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSpeech(card.word);
+            }}
             className="absolute top-6 right-6 p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors"
           >
             <Volume2 size={24} />

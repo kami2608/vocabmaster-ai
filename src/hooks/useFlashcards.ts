@@ -1,5 +1,5 @@
 // src/hooks/useFlashcards.ts
-import { Flashcard } from '@type-schema/common';
+import { Flashcard } from '@type-schema/flashcard';
 import * as flashcardServices from '@services/flashcardServices';
 import { useState, useEffect } from 'react';
 

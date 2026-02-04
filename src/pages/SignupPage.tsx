@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Mail, Lock, Loader2, BrainCircuit, ArrowRight } from 'lucide-react';
+import { Mail, Lock, Loader2, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from '@tanstack/react-router';
 import { useAuth } from '@context/AuthContext';
+import RightSideHero from '@components/RightSideHero';
+import Input from '@components/Input';
 
 const SignupPage: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +12,8 @@ const SignupPage: React.FC = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { loading, signUp } = useAuth();
+  const [showPass, setShowPass] = useState(false);
+  const [showConfirmPass, setShowConfirmPass] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,32 +34,7 @@ const SignupPage: React.FC = () => {
     <div className="flex items-center justify-center p-5 sm:p-15">
       <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row-reverse animate-in fade-in zoom-in duration-300">
         {/* Right Side - Hero (Reversed) */}
-        <div className="md:w-1/2 bg-slate-900 p-10 text-white flex flex-col justify-between relative overflow-hidden">
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-indigo-500 rounded-xl flex items-center justify-center">
-                <BrainCircuit size={24} className="text-white" />
-              </div>
-              <span className="text-2xl font-bold tracking-tight">VocabAI</span>
-            </div>
-            <h2 className="text-3xl font-bold mb-4 leading-tight">Start Your Journey.</h2>
-            <p className="text-slate-400 leading-relaxed">
-              Create an account to save your progress, access your flashcards from anywhere, and
-              track your learning milestones.
-            </p>
-          </div>
-
-          <div className="relative z-10 mt-12 md:mt-0">
-            <div className="flex items-center gap-4 text-sm font-medium text-slate-500">
-              <div className="h-px bg-slate-700 w-8"></div>
-              Join for free
-            </div>
-          </div>
-
-          {/* Decorative Circles */}
-          <div className="absolute top-10 -right-10 w-64 h-64 bg-indigo-900 rounded-full opacity-50 blur-3xl"></div>
-          <div className="absolute -bottom-10 left-10 w-40 h-40 bg-indigo-600 rounded-full opacity-20 blur-2xl"></div>
-        </div>
+        <RightSideHero />
 
         {/* Left Side - Form */}
         <div className="md:w-1/2 p-10 md:p-14 flex flex-col justify-center">
@@ -67,58 +46,56 @@ const SignupPage: React.FC = () => {
               <label className="block text-sm font-medium text-slate-700 mb-1.5">
                 Email Address
               </label>
-              <div className="relative">
-                <Mail
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  size={18}
-                />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                  placeholder="you@example.com"
-                  required
-                />
-              </div>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                required
+                startIcon={<Mail className=" text-slate-400" size={18} />}
+              />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
-              <div className="relative">
-                <Lock
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  size={18}
-                />
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                  placeholder="Create a password"
-                  required
-                />
-              </div>
+              <Input
+                type={showPass ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Create a password"
+                required
+                startIcon={<Lock className=" text-slate-400" size={18} />}
+                endIcon={
+                  showPass ? (
+                    <Eye size={18} className="text-slate-400" />
+                  ) : (
+                    <EyeOff size={18} className="text-slate-400" />
+                  )
+                }
+                onEndIconClick={() => setShowPass(!showPass)}
+              />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">
                 Confirm password
               </label>
-              <div className="relative">
-                <Lock
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  size={18}
-                />
-                <input
-                  type="password"
-                  value={rePassword}
-                  onChange={(e) => setRePassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                  placeholder="Confirm the password"
-                  required
-                />
-              </div>
+              <Input
+                type={showConfirmPass ? 'text' : 'password'}
+                value={rePassword}
+                onChange={(e) => setRePassword(e.target.value)}
+                placeholder="Confirm your password"
+                required
+                startIcon={<Lock className=" text-slate-400" size={18} />}
+                endIcon={
+                  showConfirmPass ? (
+                    <Eye size={18} className="text-slate-400" />
+                  ) : (
+                    <EyeOff size={18} className="text-slate-400" />
+                  )
+                }
+                onEndIconClick={() => setShowConfirmPass(!showConfirmPass)}
+              />
             </div>
 
             {error && (

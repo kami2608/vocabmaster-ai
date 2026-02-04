@@ -1,4 +1,4 @@
-import { CardStatus, Flashcard } from '@type-schema/common';
+import { CardStatus, Flashcard } from '@type-schema/flashcard';
 import { supabase } from './supabase';
 
 // Convert DB timestamp to JS timestamp
@@ -105,4 +105,33 @@ export const getFlashcardsForReview = async (): Promise<Flashcard[]> => {
 
   if (error) throw error;
   return data.map(dbToApp);
+};
+
+/**
+ * Bulk insert flashcards for CSV import
+ * Returns the number of successfully inserted rows
+ */
+export const bulkInsertFlashcards = async (
+  flashcards: Array<Omit<Flashcard, 'id' | 'createdAt' | 'lastReviewedAt'>>
+): Promise<number> => {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error('Not authenticated');
+
+  const insertData = flashcards.map((flashcard) => ({
+    user_id: user.id,
+    word: flashcard.word,
+    phonetic: flashcard.phonetic || null,
+    definition: flashcard.definition,
+    example: flashcard.example || null,
+    translation: flashcard.translation,
+    status: flashcard.status || CardStatus.New,
+    last_reviewed_at: null,
+  }));
+
+  const { data, error } = await supabase.from('flashcards').insert(insertData).select();
+
+  if (error) throw error;
+  return data?.length || 0;
 };

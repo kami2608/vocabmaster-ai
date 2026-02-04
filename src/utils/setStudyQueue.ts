@@ -1,4 +1,4 @@
-import { CardStatus, Flashcard } from '@type-schema/common';
+import { CardStatus, Flashcard } from '@type-schema/flashcard';
 
 export const setStudyQueue = (cards: Flashcard[]) => {
   const learning = cards.filter((c) => c.status === CardStatus.Learning);

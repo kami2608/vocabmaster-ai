@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { BookA, Gamepad2, LayoutDashboard, Library } from 'lucide-react';
+import { BookA, Gamepad2, LayoutDashboard, Library, Upload } from 'lucide-react';
 import { FC } from 'react';
 
 interface HamburgerButtonProps {
@@ -69,6 +69,14 @@ const HamburgerButton: FC<HamburgerButtonProps> = ({ isOpen, setIsOpen, isActive
           >
             <Library size={20} />
             Word List
+          </Link>
+          <Link
+            onClick={() => setIsOpen(false)}
+            to="/import"
+            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${isActive('/import') ? 'bg-indigo-50 text-indigo-600 font-semibold' : 'text-slate-600 hover:bg-slate-100'}`}
+          >
+            <Upload size={20} />
+            Import CSV
           </Link>
         </nav>
       )}

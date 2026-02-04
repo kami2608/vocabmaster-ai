@@ -1,7 +1,7 @@
 import { GoogleGenAI, Type } from '@google/genai';
-import { GeneratedContent } from '@type-schema/common';
+import { GeneratedContent } from '@type-schema/flashcard';
 
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
+const apiKey = process.env.API_KEY || '';
 const ai = new GoogleGenAI({ apiKey });
 
 export const generateWordDetails = async (word: string): Promise<GeneratedContent | null> => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BookOpen, Gamepad2, BrainCircuit } from 'lucide-react';
-import { CardStatus } from '@type-schema/common';
+import { CardStatus } from '@type-schema/flashcard';
 import StatsChart from '@components/StatsChart';
 import { useNavigate } from '@tanstack/react-router';
 import { useGetFlashcards } from '@apis/queries/flashcards';

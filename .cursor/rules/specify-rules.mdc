@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2025-12-24
 
 ## Active Technologies
+- TypeScript 5.8.2, React 19.2.3 + Vite 6.2.0, TanStack Router 1.143.x (file-based routing), TanStack React Query 5.90.x, Tailwind CSS 4.1.18, MUI Material 7.3.6 (+ Emotion), lucide-react 0.562.0, react-hook-form 7.71.x (002-csv-vocab-upload)
+- Supabase (existing `flashcards` table via `@supabase/supabase-js`) (002-csv-vocab-upload)
 
 - TypeScript 5.8.2, React 19.2.3 + React 19.2.3, React DOM 19.2.3, TanStack Router (to be installed), Vite 6.2.0, Tailwind CSS 4.1.18, lucide-react 0.562.0 (001-router-refactor)
 
@@ -23,6 +25,7 @@ npm test && npm run lint
 TypeScript 5.8.2, React 19.2.3: Follow standard conventions
 
 ## Recent Changes
+- 002-csv-vocab-upload: Added TypeScript 5.8.2, React 19.2.3 + Vite 6.2.0, TanStack Router 1.143.x (file-based routing), TanStack React Query 5.90.x, Tailwind CSS 4.1.18, MUI Material 7.3.6 (+ Emotion), lucide-react 0.562.0, react-hook-form 7.71.x
 
 - 001-router-refactor: Added TypeScript 5.8.2, React 19.2.3 + React 19.2.3, React DOM 19.2.3, TanStack Router (to be installed), Vite 6.2.0, Tailwind CSS 4.1.18, lucide-react 0.562.0
 

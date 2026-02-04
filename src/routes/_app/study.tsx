@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import StudyPage from '@pages/StudyPage';
 import { useNavigate } from '@tanstack/react-router';
 import { useState } from 'react';
-import { CardStatus } from '@type-schema/common';
+import { CardStatus } from '@type-schema/flashcard';
 import { setStudyQueue } from '@utils/setStudyQueue';
 import { useGetFlashcards } from '@apis/queries/flashcards';
 import { useUpdateFlashcard } from '@apis/mutations/flashcards';

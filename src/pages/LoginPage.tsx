@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Mail, Lock, Loader2, BrainCircuit, ArrowRight } from 'lucide-react';
+import { Mail, Lock, Loader2, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from '@tanstack/react-router';
 import { useAuth } from '@context/AuthContext';
+import Input from '@components/Input';
+import LeftSideHero from '@components/LeftSideHero';
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { loading, signIn } = useAuth();
@@ -25,33 +28,7 @@ const LoginPage: React.FC = () => {
     <div className="flex items-center justify-center p-5 sm:p-15">
       <div className="bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row animate-in fade-in zoom-in duration-300">
         {/* Left Side - Hero */}
-        <div className="md:w-1/2 bg-indigo-600 p-10 text-white flex flex-col justify-between relative overflow-hidden">
-          <div className="relative z-10">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
-                <BrainCircuit size={24} className="text-white" />
-              </div>
-              <span className="text-2xl font-bold tracking-tight">VocabAI</span>
-            </div>
-            <h2 className="text-3xl font-bold mb-4 leading-tight">
-              Master English Vocabulary Faster.
-            </h2>
-            <p className="text-indigo-100 leading-relaxed">
-              Use AI-powered flashcards and spaced repetition to remember words forever. Join
-              thousands of learners today.
-            </p>
-          </div>
-          <div className="relative z-10 mt-12 md:mt-0">
-            <div className="flex items-center gap-4 text-sm font-medium text-indigo-200">
-              <div className="h-px bg-indigo-400 w-8"></div>
-              Welcome Back
-            </div>
-          </div>
-
-          {/* Decorative Circles */}
-          <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-indigo-500 rounded-full opacity-50 blur-3xl"></div>
-          <div className="absolute top-0 -left-10 w-40 h-40 bg-indigo-400 rounded-full opacity-30 blur-2xl"></div>
-        </div>
+        <LeftSideHero />
 
         {/* Right Side - Form */}
         <div className="md:w-1/2 p-10 md:p-14 flex flex-col justify-center">
@@ -63,38 +40,33 @@ const LoginPage: React.FC = () => {
               <label className="block text-sm font-medium text-slate-700 mb-1.5">
                 Email Address
               </label>
-              <div className="relative">
-                <Mail
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  size={18}
-                />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                  placeholder="you@example.com"
-                  required
-                />
-              </div>
+              <Input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                startIcon={<Mail size={18} className="text-slate-400" />}
+                required
+                placeholder="you@gmail.com"
+              />
             </div>
-
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
-              <div className="relative">
-                <Lock
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
-                  size={18}
-                />
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                  placeholder="••••••••"
-                  required
-                />
-              </div>
+              <Input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                type={showPass ? 'text' : 'password'}
+                startIcon={<Lock size={18} className="text-slate-400" />}
+                endIcon={
+                  showPass ? (
+                    <Eye size={18} className="text-slate-400" />
+                  ) : (
+                    <EyeOff size={18} className="text-slate-400" />
+                  )
+                }
+                required
+                placeholder="Enter your password"
+                onEndIconClick={() => setShowPass(!showPass)}
+              />
             </div>
 
             {error && (
